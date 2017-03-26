@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 Server Side Event Example in Go</title>
+        <script
+	   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	   integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+	   crossorigin="anonymous"></script></head>
+<body>
+
+	<h1>Pod info:</h1>
+        <div id="podinfo"></div>
+
+	<script type="text/javascript">
+'use strict';
+
+// Create a new HTML5 EventSource
+var source = new EventSource('/events/');
+
+// Create a callback for when a new message is received.
+source.onmessage = function(e) {
+    console.log("got: ", e.data);
+    var o = JSON.parse(e.data);
+    handleEvent(o);
+};
+
+
+var ps = [];
+
+function handleEvent(e) {
+    //e.podName
+    //e.containerStates : name->state
+
+    ps[e.podName] = e.containerStates;
+
+    redraw();
+}
+
+function redraw() {
+    var out = "";
+    for (var podName in ps) {
+        out += JSON.stringify(ps[podName]);
+        out += "<br/>";
+    }
+    $("#podinfo").html(out);
+}
+        </script>
+</body>
+</html>
