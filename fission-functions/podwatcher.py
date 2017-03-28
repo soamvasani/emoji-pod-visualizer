@@ -8,7 +8,7 @@ def main():
     objType = request.headers["X-Kubernetes-Object-Type"]
 
     if objType != "Pod":
-        return
+        return ""
     
     pod = request.get_json()
     if (pod == None) or ("status" not in pod) or ("containerStatuses" not in pod["status"]):
@@ -16,10 +16,19 @@ def main():
         return ""
 
     podName = pod["metadata"]["name"]
-    current_app.logger.info("Event %s for %s %s" % (eventType, objType, podName))
 
-    containerStatuses = pod["status"]["containerStatuses"]
+    states = summarizeContainerStates(pod)
 
+    # Notify clients
+    notification = { "containerStates": states, "podName": podName }
+    r = requests.post("http://podvis.default:8001/", data=json.dumps(notification))
+    current_app.logger.info("Pod vis event post status: %s" % r.status_code)
+    
+    return ""
+
+
+def summarizeContainerStates(pod):
+    containerStatuses = pod["status"]["containerStatuses"]    
     states = {}
     for cs in containerStatuses:
         name = cs["name"]
@@ -35,10 +44,4 @@ def main():
             states[name] = s
 
     current_app.logger.info("C states = %s" % states)
-    
-    # Notify clients
-    notification = { "numPods": 1, "containerStates": states, "podName": podName, "eventType": eventType }
-    r = requests.post("http://podvis.default:8001/", data=json.dumps(notification))
-    current_app.logger.info("Pod vis event post status: %s" % r.status_code)
-    
-    return ""
+    return states
