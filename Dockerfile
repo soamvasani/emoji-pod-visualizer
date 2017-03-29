@@ -2,7 +2,7 @@ FROM alpine:3.4
 
 ADD emoji-pod-visualizer /
 ADD templates /templates
-ADD images /images
+ADD static /static
 
 WORKDIR /
 

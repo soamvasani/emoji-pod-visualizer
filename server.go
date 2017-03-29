@@ -196,9 +196,8 @@ func startSSEServer(b *Broker) {
 	// Start processing events
 	b.Start()
 
-	// static images
-	fs := http.FileServer(http.Dir("/images"))
-	http.Handle("/images", http.StripPrefix("/images", fs))
+	// static
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("/static"))))
 
 	// Make b the HTTP handler for "/events/".  It can do
 	// this because it has a ServeHTTP method.  That method
