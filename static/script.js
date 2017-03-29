@@ -43,8 +43,12 @@ function redraw() {
                 out += '<img src="/static/baby.png">';
             } else if (state === 'terminated') {
                 out += '<img src="/static/ghost.png">';
+            } else if (state === 'ErrImagePull') {
+                out += '<img src="/static/unamused.png">';
+            } else if (state === 'ImagePullBackOff') {
+                out += '<img src="/static/frown.png">';
             } else {
-                out += state;
+                out += '<img src="/static/question-mark-emoji.png">';
             }
         }
         out += '</div>';

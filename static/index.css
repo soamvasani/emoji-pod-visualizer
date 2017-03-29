@@ -1,13 +1,17 @@
-.podName {
-    position: absolute;
-    font-family: Sans-serif;
-    top: -8px;
-    font-size: 22px;
-}
 .pod {
     display: inline-block;
     border: 2px solid #ddd;
     border-radius: 10px;
     margin: 10px;
     position: relative;
+}
+.podName {
+    position: absolute;
+    font-family: Sans-serif;
+    top: -8px;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 87%;
+    left: 8px;
 }
