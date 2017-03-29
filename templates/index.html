@@ -1,49 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>HTML5 Server Side Event Example in Go</title>
-        <script
-	   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	   integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-	   crossorigin="anonymous"></script></head>
-<body>
+  <head>
+    <title>HTML5 Server Side Event Example in Go</title>
 
-	<h1>Pod info:</h1>
-        <div id="podinfo"></div>
+    <script
+       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+       crossorigin="anonymous"></script></head>
 
-	<script type="text/javascript">
-'use strict';
+  <link rel="stylesheet" href="/static/index.css">
+<!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+-->
+  <script src="/static/script.js">
+  </script>
 
-// Create a new HTML5 EventSource
-var source = new EventSource('/events/');
+  <body>
 
-// Create a callback for when a new message is received.
-source.onmessage = function(e) {
-    console.log("got: ", e.data);
-    var o = JSON.parse(e.data);
-    handleEvent(o);
-};
+    <h1>Pods</h1>
 
+    <div id="podinfo"></div>
 
-var ps = [];
-
-function handleEvent(e) {
-    //e.podName
-    //e.containerStates : name->state
-
-    ps[e.podName] = e.containerStates;
-
-    redraw();
-}
-
-function redraw() {
-    var out = "";
-    for (var podName in ps) {
-        out += JSON.stringify(ps[podName]);
-        out += "<br/>";
-    }
-    $("#podinfo").html(out);
-}
-        </script>
-</body>
+  </body>
 </html>
