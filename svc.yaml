@@ -1,0 +1,53 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2017-03-25T23:45:26Z
+    labels:
+      run: emoji-pod-vis
+    name: emoji-pod-vis
+    namespace: default
+    resourceVersion: "9793"
+    selfLink: /api/v1/namespaces/default/services/emoji-pod-vis
+    uid: 1f2a60a5-11b5-11e7-ab3c-0a293de8b0fb
+  spec:
+    clusterIP: 10.0.0.18
+    ports:
+    - nodePort: 32676
+      port: 80
+      protocol: TCP
+      targetPort: 8000
+    selector:
+      run: emoji-pod-vis
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2017-03-25T23:46:12Z
+    labels:
+      run: emoji-pod-vis
+    name: podvis
+    namespace: default
+    resourceVersion: "8261"
+    selfLink: /api/v1/namespaces/default/services/podvis
+    uid: 3a34c9be-11b5-11e7-ab3c-0a293de8b0fb
+  spec:
+    clusterIP: 10.0.0.33
+    ports:
+    - port: 8001
+      protocol: TCP
+      targetPort: 8001
+    selector:
+      run: emoji-pod-vis
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
+resourceVersion: ""
+selfLink: ""

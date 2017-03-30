@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "18"
+  creationTimestamp: 2017-03-25T23:34:16Z
+  generation: 18
+  labels:
+    run: emoji-pod-vis
+  name: emoji-pod-vis
+  namespace: default
+  resourceVersion: "169838"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/emoji-pod-vis
+  uid: 8fced1ca-11b3-11e7-ab3c-0a293de8b0fb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: emoji-pod-vis
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: emoji-pod-vis
+    spec:
+      containers:
+      - image: soam/emoji-pod-vis:110
+        imagePullPolicy: Always
+        name: emoji-pod-vis
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2017-03-25T23:34:16Z
+    lastUpdateTime: 2017-03-25T23:34:16Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 18
+  replicas: 1
+  updatedReplicas: 1
